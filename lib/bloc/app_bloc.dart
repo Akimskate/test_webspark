@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:test_webspark/bloc/app_event.dart';
 import 'package:test_webspark/bloc/app_state.dart';
 import 'package:test_webspark/repository/app_repository/app_repository.dart';
+import 'package:test_webspark/utils/dijkstra_algorithm/dijkstra_algorithm.dart';
 import 'package:test_webspark/utils/url_validator/url_validator.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
@@ -12,6 +13,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<OnGetRequestEvent>(_onGetRequested);
     on<OnEmailInputChangedEvent>(_onUrlChanged);
     on<OnPostRequestEvent>(_onPostRequested);
+    on<OnCalculateEvent>(_onCalculate);
   }
 
   final AppRepository _appRepository;
@@ -40,6 +42,15 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     } catch (error) {
       emit(state.copyWith(status: AppStatus.failure, errorMessage: error.toString()));
     }
+  }
+
+  void _onCalculate(
+    OnCalculateEvent event,
+    Emitter<AppState> emit,
+  ) {
+    final resultModel = dijkstra(state.taskModel);
+    emit(state.copyWith(resultModel: resultModel));
+    print("Result model: ${resultModel.result?.toJson()}");
   }
 
   void _onUrlChanged(

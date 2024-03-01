@@ -13,6 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppBloc, AppState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         // Navigate to process page after request completed successfully
         if (state.status == AppStatus.success) {

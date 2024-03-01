@@ -38,7 +38,7 @@ class ResultsMapScreen extends StatelessWidget {
             return Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black),
-                color: cellColor, // Установить цвет ячейки
+                color: cellColor,
               ),
               child: Center(
                 child: Text("($x, $y)"),

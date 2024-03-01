@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_webspark/bloc/app_bloc.dart';
+import 'package:test_webspark/bloc/app_event.dart';
 import 'package:test_webspark/presentation/process/widgets/dynamic_circular_indicator.dart';
 
 class ProcessScreen extends StatefulWidget {
@@ -55,6 +58,7 @@ class _ProcessScreenState extends State<ProcessScreen> {
           child: FilledButton(
             onPressed: () {
               Navigator.pushNamed(context, '/results-list');
+              context.read<AppBloc>().add(OnCalculateEvent());
             },
             child: const Text('Send results to server'),
           ),

@@ -11,6 +11,8 @@ final class OnGetRequestEvent extends AppEvent {}
 
 final class OnPostRequestEvent extends AppEvent {}
 
+final class OnCalculateEvent extends AppEvent {}
+
 final class OnEmailInputChangedEvent extends AppEvent {
   final String url;
 
