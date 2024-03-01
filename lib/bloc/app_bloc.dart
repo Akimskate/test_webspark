@@ -37,7 +37,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     Emitter<AppState> emit,
   ) async {
     try {
-      await _appRepository.postTaskResult(state.url, state.resultModel);
+      //await _appRepository.postTaskResult(state.url, state.resultModel);
       emit(state.copyWith(status: AppStatus.success));
     } catch (error) {
       emit(state.copyWith(status: AppStatus.failure, errorMessage: error.toString()));
@@ -48,9 +48,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     OnCalculateEvent event,
     Emitter<AppState> emit,
   ) {
-    final resultModel = dijkstra(state.taskModel);
+    final resultModel = solveAllTasks(state.taskModel);
     emit(state.copyWith(resultModel: resultModel));
-    print("Result model: ${resultModel.result?.toJson()}");
+    for (var result in resultModel) {
+      print("Result model: ${result.toJson()}");
+    }
   }
 
   void _onUrlChanged(

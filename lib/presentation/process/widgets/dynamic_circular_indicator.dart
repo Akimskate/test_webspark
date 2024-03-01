@@ -18,7 +18,7 @@ class _DynamicProgressIndicatorState extends State<DynamicProgressIndicator> wit
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 1),
     )..addListener(() {
         setState(() {
           _percent = _controller.value * 100;

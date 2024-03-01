@@ -19,7 +19,7 @@ final class AppState extends Equatable {
   final String errorMessage;
   final String url;
   final TaskModel? taskModel;
-  final ResultModel? resultModel;
+  final List<ResultModel>? resultModel;
 
   AppState copyWith({
     AppStatus? status,
@@ -27,7 +27,7 @@ final class AppState extends Equatable {
     String? errorMessage,
     String? url,
     TaskModel? taskModel,
-    ResultModel? resultModel,
+    List<ResultModel>? resultModel,
   }) {
     return AppState(
       status: status ?? this.status,

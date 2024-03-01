@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   const Icon(Icons.sync_alt),
                   SizedBox(
-                    width: 300,
+                    width: 320,
                     child: TextFormField(
                         controller: TextEditingController(
                             text: "https://flutter.webspark.dev/flutter/api"), // TODO delete before sending up the task
