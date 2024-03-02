@@ -17,16 +17,25 @@ class ResultsListScreen extends StatelessWidget {
             title: const Text("Result list screen"),
           ),
           body: ListView.separated(
-            itemCount: state.taskModel?.data?.length ?? 0,
+            itemCount: state.resultModel?.length ?? 0,
             separatorBuilder: (BuildContext context, int index) => const Divider(),
             itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(
-                    "(${state.taskModel?.data?[index].start?.x.toString()}, ${state.taskModel?.data?[index].start?.y.toString()})->(${state.taskModel?.data?[index].end?.x.toString()}, ${state.taskModel?.data?[index].end?.y.toString()})"),
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  '/results-map',
-                  arguments: state.taskModel?.data?[index],
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/results-map',
+                    arguments: [state.resultModel![index].result?.steps, state.taskModel?.data?[index]],
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      state.resultModel![index].result!.path.toString(),
+                      style: const TextStyle(fontSize: 20.0),
+                    ),
+                  ),
                 ),
               );
             },
