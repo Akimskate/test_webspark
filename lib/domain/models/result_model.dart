@@ -6,14 +6,14 @@ class ResultModel {
 
   ResultModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    result = json['result'] != null ? new Result.fromJson(json['result']) : null;
+    result = json['result'] != null ? Result.fromJson(json['result']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.result != null) {
-      data['result'] = this.result!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    if (result != null) {
+      data['result'] = result!.toJson();
     }
     return data;
   }
@@ -29,18 +29,18 @@ class Result {
     if (json['steps'] != null) {
       steps = <Steps>[];
       json['steps'].forEach((v) {
-        steps!.add(new Steps.fromJson(v));
+        steps!.add(Steps.fromJson(v));
       });
     }
     path = json['path'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.steps != null) {
-      data['steps'] = this.steps!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (steps != null) {
+      data['steps'] = steps!.map((v) => v.toJson()).toList();
     }
-    data['path'] = this.path;
+    data['path'] = path;
     return data;
   }
 }
@@ -52,14 +52,14 @@ class Steps {
   Steps({this.x, this.y});
 
   Steps.fromJson(Map<String, dynamic> json) {
-    x = json['x'];
+    x = json['x'] ? null : '';
     y = json['y'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['x'] = this.x;
-    data['y'] = this.y;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['x'] = x;
+    data['y'] = y;
     return data;
   }
 }

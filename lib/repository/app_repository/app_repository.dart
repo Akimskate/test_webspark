@@ -1,6 +1,7 @@
 import 'package:test_webspark/domain/app_api.dart';
-import 'package:test_webspark/domain/model/result_model.dart';
-import 'package:test_webspark/domain/model/task_model.dart';
+import 'package:test_webspark/domain/models/response_model.dart';
+import 'package:test_webspark/domain/models/result_model.dart';
+import 'package:test_webspark/domain/models/task_model.dart';
 
 class AppRepository {
   AppRepository({required AppApi appApi}) : _appApi = appApi;
@@ -9,5 +10,6 @@ class AppRepository {
 
   Future<TaskModel> getTask(String url) => _appApi.getTask(url);
 
-  Future<TaskModel> postTaskResult(String url, ResultModel? resultModel) => _appApi.postResult(url, resultModel!);
+  Future<ResponseModel> postTaskResult(String url, List<ResultModel>? resultModel) =>
+      _appApi.postResult(url, resultModel!);
 }

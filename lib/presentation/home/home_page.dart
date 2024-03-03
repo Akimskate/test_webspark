@@ -13,10 +13,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppBloc, AppState>(
-      listenWhen: (previous, current) => previous.status != current.status,
+      listenWhen: (previous, current) => previous.taskModel != current.taskModel,
       listener: (context, state) {
         // Navigate to process page after request completed successfully
-        if (state.status == AppStatus.success) {
+        if (state.getRequestStatus == GetRequestStatus.success) {
           Navigator.pushNamed(context, '/process');
         }
       },
@@ -42,8 +42,6 @@ class HomePage extends StatelessWidget {
                   SizedBox(
                     width: 320,
                     child: TextFormField(
-                        controller: TextEditingController(
-                            text: "https://flutter.webspark.dev/flutter/api"), // TODO delete before sending up the task
                         validator: UrlValidator.validateUrl,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         onChanged: (value) {
@@ -72,7 +70,7 @@ class HomePage extends StatelessWidget {
             height: 50,
             margin: const EdgeInsets.all(10),
             child: FilledButton(
-              onPressed: (state.isValid && state.status != AppStatus.loading)
+              onPressed: (state.isValid && state.getRequestStatus != GetRequestStatus.loading)
                   ? () {
                       context.read<AppBloc>().add(OnGetRequestEvent());
                     }
@@ -82,7 +80,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   const Text('Start counting process'),
                   // Show circular progress indicator while processing request
-                  state.status == AppStatus.loading
+                  state.getRequestStatus == GetRequestStatus.loading
                       ? Transform.scale(
                           scale: 0.5,
                           child: CircularProgressIndicator(

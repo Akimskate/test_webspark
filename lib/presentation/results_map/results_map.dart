@@ -8,7 +8,6 @@ class ResultsMapScreen extends StatelessWidget {
     final dynamic data = ModalRoute.of(context)!.settings.arguments;
     final List cells = data[0];
     final List resultCells = cells.sublist(1, cells.length - 1);
-    print(resultCells);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

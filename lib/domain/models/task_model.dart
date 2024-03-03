@@ -11,15 +11,15 @@ class TaskModel {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['error'] = this.error;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['error'] = error;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -38,19 +38,19 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     field = json['field'].cast<String>();
-    start = json['start'] != null ? new Start.fromJson(json['start']) : null;
-    end = json['end'] != null ? new Start.fromJson(json['end']) : null;
+    start = json['start'] != null ? Start.fromJson(json['start']) : null;
+    end = json['end'] != null ? Start.fromJson(json['end']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['field'] = this.field;
-    if (this.start != null) {
-      data['start'] = this.start!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['field'] = field;
+    if (start != null) {
+      data['start'] = start!.toJson();
     }
-    if (this.end != null) {
-      data['end'] = this.end!.toJson();
+    if (end != null) {
+      data['end'] = end!.toJson();
     }
     return data;
   }
@@ -68,9 +68,9 @@ class Start {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['x'] = this.x;
-    data['y'] = this.y;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['x'] = x;
+    data['y'] = y;
     return data;
   }
 }

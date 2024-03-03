@@ -22,13 +22,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     OnGetRequestEvent event,
     Emitter<AppState> emit,
   ) async {
-    emit(state.copyWith(status: AppStatus.loading));
+    emit(state.copyWith(getRequestStatus: GetRequestStatus.loading));
 
     try {
       final taskModel = await _appRepository.getTask(state.url);
-      emit(state.copyWith(status: AppStatus.success, taskModel: taskModel));
+
+      emit(state.copyWith(getRequestStatus: GetRequestStatus.success, errorMessage: '', taskModel: taskModel));
     } catch (error) {
-      emit(state.copyWith(status: AppStatus.failure, errorMessage: error.toString()));
+      emit(state.copyWith(getRequestStatus: GetRequestStatus.failure, errorMessage: error.toString()));
     }
   }
 
@@ -36,11 +37,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     OnPostRequestEvent event,
     Emitter<AppState> emit,
   ) async {
+    emit(state.copyWith(postRequestStatus: PostRequestStatus.loading));
     try {
-      //await _appRepository.postTaskResult(state.url, state.resultModel);
-      emit(state.copyWith(status: AppStatus.success));
+      final responseModel = await _appRepository.postTaskResult(state.url, state.resultModel);
+      emit(
+          state.copyWith(postRequestStatus: PostRequestStatus.success, errorMessage: '', responseModel: responseModel));
     } catch (error) {
-      emit(state.copyWith(status: AppStatus.failure, errorMessage: error.toString()));
+      emit(state.copyWith(postRequestStatus: PostRequestStatus.failure, errorMessage: error.toString()));
     }
   }
 
@@ -50,9 +53,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   ) {
     final resultModel = solveAllTasks(state.taskModel);
     emit(state.copyWith(resultModel: resultModel));
-    for (var result in resultModel) {
-      print("Result model: ${result.toJson()}");
-    }
   }
 
   void _onUrlChanged(

@@ -1,7 +1,7 @@
 import 'dart:collection';
 
-import 'package:test_webspark/domain/model/result_model.dart';
-import 'package:test_webspark/domain/model/task_model.dart';
+import 'package:test_webspark/domain/models/result_model.dart';
+import 'package:test_webspark/domain/models/task_model.dart';
 
 List<ResultModel> solveAllTasks(TaskModel? taskModel) {
   List<ResultModel> results = [];
@@ -15,7 +15,6 @@ List<ResultModel> solveAllTasks(TaskModel? taskModel) {
     ResultModel result = dijkstra(id, field, start, end, taskModel);
     results.add(result);
   }
-
   return results;
 }
 
@@ -86,6 +85,7 @@ ResultModel dijkstra(String? id, List<String>? field, Start? start, Start? end, 
       break;
     }
   }
+  pathSteps = pathSteps.reversed.toList();
 
   String path = pathSteps.map((step) => "(${step.x},${step.y})").join("->");
   return ResultModel(id: id, result: Result(steps: pathSteps, path: path));
